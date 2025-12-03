@@ -265,3 +265,10 @@ h1 { color: #d4a04d; text-transform: uppercase; letter-spacing: 2px; }
     color: #888;
     border-radius: 4px;
 }
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+.blink {
+  animation: blinker 1s linear infinite;
+  color: #4caf50 !important; /* Vert flash */
+}
