@@ -631,6 +631,19 @@ function afficherCarte(container, plan) {
     const heartIcon = isFav ? "❤️" : "🤍";
     const format = (num) => new Intl.NumberFormat('fr-FR').format(parseInt(num));
     
+    // --- NOUVEAU : CALCUL DU ROI ---
+    // Si le coût est 0, on met un ROI infini pour éviter la division par zéro
+    const roi = plan.cout > 0 ? Math.round((plan.profit / plan.cout) * 100) : 0;
+    
+    // On décide de la couleur du ROI (Plus c'est haut, plus c'est vert/feu)
+    let roiColor = '#888'; // Gris par défaut
+    let roiIcon = '';
+    if (roi > 100) { roiColor = '#4caf50'; roiIcon = '🔥'; } // Super rentable
+    else if (roi > 50) { roiColor = '#ff9800'; } // Très bien
+    
+    const roiHTML = `<span style="color:${roiColor}; font-size:0.8em; margin-left:8px;">(${roiIcon} ${roi}% ROI)</span>`;
+    // -------------------------------
+
     let typeBadge = (plan.type === 'CASH') 
         ? `<span style="background:#2196f3; color:white; padding:2px 6px; border-radius:4px; font-size:0.7em;">ACHAT</span>` 
         : `<span style="background:#ff9800; color:white; padding:2px 6px; border-radius:4px; font-size:0.7em;">TROC</span>`;
@@ -639,17 +652,19 @@ function afficherCarte(container, plan) {
     const total = plan.profit * safeLimit;
     const colorClass = (plan.strategie === "JOUER") ? "text-blue" : "text-gold";
 
+    // J'ai ajouté ${roiHTML} juste après le profit unitaire
     let bigNumberHTML = (plan.limite > 1) 
-        ? `<div style="font-size:1.4em; font-weight:bold; margin-bottom:5px;" class="${colorClass}">+${format(total)} ₽ <span style="font-size:0.5em; color:#888;">(Total ${plan.limite}x)</span></div><div style="font-size:0.8em; color:#aaa;">Unitaire : +${format(plan.profit)} ₽</div>`
-        : `<div style="font-size:1.4em; font-weight:bold; margin-bottom:5px;" class="${colorClass}">+${format(plan.profit)} ₽</div>`;
+        ? `<div style="font-size:1.4em; font-weight:bold; margin-bottom:5px;" class="${colorClass}">+${format(total)} ₽ <span style="font-size:0.5em; color:#888;">(Total ${plan.limite}x)</span></div><div style="font-size:0.8em; color:#aaa;">Unitaire : +${format(plan.profit)} ₽ ${roiHTML}</div>`
+        : `<div style="font-size:1.4em; font-weight:bold; margin-bottom:5px;" class="${colorClass}">+${format(plan.profit)} ₽ ${roiHTML}</div>`;
 
-    // HTML IMAGE
+    // ... (Le reste de la fonction est identique) ...
+    // Je remets le reste pour que tu puisses copier-coller facilement
+
     const img = document.createElement('img');
     img.alt = displaySafeName;
     img.src = sanitizeUrl(plan.img);
     img.onerror = function() { this.onerror = null; this.src = fallbackImage; };
 
-    // NOUVEAU : HTML TIMER (On ajoute une classe js-reset-timer et un data-trader)
     const resetTimeInfo = `<div style="font-size:0.8em; color:#888; margin-top:2px;" class="js-reset-timer" data-trader="${plan.trader}">🕒 ...</div>`;
 
     div.innerHTML = `
