@@ -1,0 +1,267 @@
+body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 { color: #d4a04d; text-transform: uppercase; letter-spacing: 2px; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Cartes un peu plus larges */
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* La carte est maintenant un lien <a> */
+.card {
+    background-color: #161616;
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 6px;
+    text-align: left;
+    text-decoration: none; /* Enlève le souligné du lien */
+    color: inherit;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Pour que toutes les cartes aient la même hauteur */
+    box-sizing: border-box;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #d4a04d;
+    cursor: pointer;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.card-header img {
+    width: 60px; /* Image plus grande */
+    height: 60px;
+    object-fit: contain;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.trader-info {
+    color: #888;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    background: #222;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.ingredients {
+    font-size: 0.85em;
+    color: #aaa;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Pousse le profit vers le bas */
+}
+
+.profit-box {
+    background-color: rgba(76, 175, 80, 0.1); /* Vert transparent */
+    color: #4caf50;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    border: 1px solid #4caf50;
+}
+/* Ajouts pour différencier Profit vs Économie */
+
+.profit-box.cash {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    border: 1px solid #ffd700;
+}
+
+.profit-box.savings {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+    border: 1px solid #2196f3;
+}
+/* --- STYLE DES ONGLETS --- */
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: 1px solid #444;
+    background-color: #1e1e1e;
+    color: #888;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    background-color: #333;
+    color: white;
+}
+
+/* Quand l'onglet est actif */
+.tab-btn.active {
+    background-color: #d4a04d; /* Or Tarkov par défaut */
+    color: #000;
+    border-color: #d4a04d;
+}
+
+/* Couleurs spécifiques quand actif (optionnel mais stylé) */
+.tab-btn[onclick*="FLEA"].active { background-color: #4caf50; border-color: #4caf50; color: white; }
+.tab-btn[onclick*="JOUER"].active { background-color: #2196f3; border-color: #2196f3; color: white; }
+/* --- NOUVEAUX STYLES --- */
+
+.label-tiny {
+    font-size: 0.75em;
+    color: #aaa;
+    margin-bottom: 4px;
+    margin-left: 2px;
+}
+
+.input-style {
+    padding: 10px;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    font-family: inherit;
+}
+
+.search-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-bar {
+    flex-grow: 1; /* Prend toute la place dispo */
+    border-color: #d4a04d;
+}
+
+.fav-btn-filter {
+    cursor: pointer;
+    border: 1px solid #d4a04d;
+    background: #111;
+    transition: background 0.2s;
+}
+
+.fav-btn-filter.active {
+    background: #d4a04d;
+    color: black;
+    font-weight: bold;
+}
+
+/* Le petit cœur sur la carte */
+.card-fav-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 10; /* Pour passer au dessus du lien */
+    transition: transform 0.2s;
+}
+
+.card-fav-icon:hover {
+    transform: scale(1.2);
+}
+
+.card {
+    position: relative; /* Nécessaire pour placer le cœur */
+}
+/* --- LOADER SPINNER --- */
+.spinner {
+    border: 4px solid #333;
+    border-top: 4px solid #d4a04d;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #f44336;
+    text-align: center;
+    padding: 20px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid #f44336;
+    border-radius: 5px;
+}
+/* --- AMÉLIORATIONS UX & A11Y --- */
+
+/* Reset pour faire ressembler les boutons à des icônes */
+.icon-btn-reset {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+}
+
+/* Effet de focus pour l'accessibilité (Navigation Clavier) */
+.icon-btn-reset:focus {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 2px white);
+}
+
+/* Feedback de recherche amélioré */
+.searching-state {
+    opacity: 0.6;
+    filter: grayscale(80%) blur(1px); /* Effet visuel plus marqué */
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Fallback image (si l'image casse) */
+.img-placeholder {
+    width: 60px;
+    height: 60px;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    color: #888;
+    border-radius: 4px;
+}

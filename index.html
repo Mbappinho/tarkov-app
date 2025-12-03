@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarkov Barter Scanner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Tarkov Barter Scanner</h1>
+    
+    <div class="controls" style="margin-bottom: 10px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <div style="display:flex; flex-direction:column; text-align:left;">
+            <label class="label-tiny">Ton Niveau</label>
+            <select id="level-select" class="input-style">
+                <option value="1">Niveau 1</option>
+                <option value="2">Niveau 2</option>
+                <option value="3">Niveau 3</option>
+                <option value="4" selected>Niveau 4 (Max)</option>
+            </select>
+        </div>
+
+<div style="display:flex; flex-direction:column; text-align:left; min-width: 200px;">
+            <label class="label-tiny" for="profit-slider">
+                Profit Min: <span id="profit-value" style="color:#d4a04d; font-weight:bold;">50 000 ₽</span>
+            </label>
+            <input type="range" id="profit-slider" class="input-style" 
+                   min="0" max="500000" step="10000" value="50000" 
+                   style="padding:0; cursor:pointer;">
+        </div>
+
+        <div style="display:flex; flex-direction:column; text-align:left;">
+            <label class="label-tiny">Vendeur</label>
+            <select id="trader-select" class="input-style">
+                <option value="all">Tous</option>
+                <option value="Prapor">Prapor</option>
+                <option value="Therapist">Therapist</option>
+                <option value="Skier">Skier</option>
+                <option value="Peacekeeper">Peacekeeper</option>
+                <option value="Mechanic">Mechanic</option>
+                <option value="Ragman">Ragman</option>
+                <option value="Jaeger">Jaeger</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="search-row">
+        <input type="text" id="search-input" placeholder="🔍 Rechercher un item (ex: Case, Gzhel...)" class="input-style search-bar">
+        <button id="fav-filter-btn" class="input-style fav-btn-filter" onclick="toggleShowFavorites()">
+            ❤️ Voir Favoris
+        </button>
+    </div>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="changerOnglet('all')">Tout voir</button>
+        <button class="tab-btn" onclick="changerOnglet('MARCHAND')">🤝 Vente Marchand</button>
+        <button class="tab-btn" onclick="changerOnglet('FLEA')">📈 Vente Flea</button>
+        <button class="tab-btn" onclick="changerOnglet('JOUER')">🛡️ Jouer / Garder</button>
+    </div>
+
+    <div id="loading"></div>
+    
+    <div id="result-count" style="text-align:center; color:#888; margin-bottom: 15px; font-size: 0.9em; min-height: 20px;"></div>
+    
+    <div id="barter-list" class="grid"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
