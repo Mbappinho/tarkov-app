@@ -546,8 +546,9 @@ function filtrerEtAfficher() {
     // ✅ AJOUT : Boucle d'affichage des cartes
     bonsPlans.forEach(plan => {
         afficherCarte(container, plan);
-        startGlobalTimer();
+        
     });
+    startGlobalTimer();
 }
 
 function processItemLogic(params) {
